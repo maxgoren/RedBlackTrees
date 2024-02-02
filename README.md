@@ -18,3 +18,4 @@ many variants of r/b trees I wanted to unify a simple recursive bottom up framew
 
 These tree's are used along with my TreeDraw library to create images such as the following for my blog:
 ![3kinds](https://github.com/maxgoren/RedBlackTrees/assets/65133477/d4e36933-178c-4e93-8af5-028e5c35d70e)
+which appear in articles describing the algorithms in this repo, such as http://www.maxgcoding.com/bottom-up-2-3-red-black-trees-let-your-red-nodes-lean-how-they-want/
