@@ -32,3 +32,5 @@ http://www.maxgcoding.com/bottom-up-2-3-red-black-trees-let-your-red-nodes-lean-
 http://www.maxgcoding.com/bottom-up-red-black-trees/
 
 http://www.maxgcoding.com/validating-red-black-trees/
+
+http://www.maxgcoding.com/top-down-2-3-4-5-trees-the-red-black-tree-time-forgot/
