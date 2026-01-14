@@ -24,14 +24,15 @@ class RedBlackTree {
         bool isBlack(link h) {
             return !isRed(h);
         }
-        link putR(link h, K data, bool& isUpdate) {
+        link putR(link h, K data) {
             if (h == nullptr) {
+                count++;
                 return new node(data, red, nullptr, nullptr);
             }
             if (data < h->info) {
-                h->left = putR(h->left, data, isUpdate);
+                h->left = putR(h->left, data);
             } else {
-                h->right = putR(h->right, data, isUpdate);
+                h->right = putR(h->right, data);
             }
             return balance(h);
         }
@@ -48,6 +49,7 @@ class RedBlackTree {
                     link t = h;
                     h = h->left;
                     delete t;
+                    count--;
                 } else {
                     link tmp = min(h->right);
                     h->info = tmp->info;
@@ -118,11 +120,9 @@ class RedBlackTree {
                 }
             }
             //this is the only case that should ever hit bottom-up
-            if (isRed(h->left) && isRed(h->right) && isRed(h->right->right)) {
-                if (h->right && h->right->left)
-                    h->right = rotR(h->right);
-                h = rotL(h);
+            if (isRed(h->left) && isRed(h->right) && (isRed(h->right->right) || isRed(h->left->left))) {
                 h = colorFlip(h);
+                cout<<"Oi den."<<endl;
             }
             return h;
         }
@@ -139,10 +139,9 @@ class RedBlackTree {
             if (isBlack(x) && isRed(s)) {
                 p = wentLeft ? rotL(p):rotR(p);
             }
-            x = wentLeft ? p->left:p->right;
+            x = key < p->info ? p->left:p->right;
             if (x && isBlack(x) && isBlack(x->left) && isBlack(x->right)) {
-                bool rot = false;
-                p = rot ? pushLeft(p):pushRight(p);
+                p = wentLeft ? pushLeft(p):pushRight(p);
             }
             return p;
         }
@@ -156,10 +155,6 @@ class RedBlackTree {
                 } else if (isRed(h->left) && isRed(h->left->left)) {
                     h = rotR(h);
                     h = colorFlip(h);
-                    if (isRed(h->left->left)) {
-                        h->left = rotR(h->left);
-                        h->left = colorFlip(h->left);
-                    }
                 }
             }
             return h;
@@ -171,10 +166,6 @@ class RedBlackTree {
                     h->right = rotR(h->right);
                     h = rotL(h);
                     h = colorFlip(h);
-                    if (isRed(h->right->right)) {
-                        h->right = rotL(h->right);
-                        h->right = colorFlip(h->right);
-                    }
                 } else if (isRed(h->right) && isRed(h->right->right)) {
                     h = rotL(h);
                     h = colorFlip(h);
@@ -207,12 +198,14 @@ class RedBlackTree {
         ~RedBlackTree() {
             cleanup(root);
         }
-        bool empty() {
+        bool empty() const {
             return root == nullptr;
         }
+        int size() const {
+            return count;
+        }
         void insert(K data) {
-            bool updating = false;
-            root = putR(root, data, updating);
+            root = putR(root, data);
             root->color = black;
         }
         void erase(K data) {
