@@ -119,11 +119,6 @@ class RedBlackTree {
                     h = rotR(h);
                 }
             }
-            //this is the only case that should ever hit bottom-up
-            if (isRed(h->left) && isRed(h->right) && (isRed(h->right->right) || isRed(h->left->left))) {
-                h = colorFlip(h);
-                cout<<"Oi den."<<endl;
-            }
             return h;
         }
         link pushRedDown(link p, K key) {
@@ -261,5 +256,6 @@ class RedBlackTree {
             return *this;
         }
 };
+
 
 #endif
