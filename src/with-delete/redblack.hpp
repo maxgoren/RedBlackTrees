@@ -246,6 +246,7 @@ class RedBlack {
             split(gg, g, p, x, data);
             head->right->color = black;
         }
+        //people dont appreciate how rare this is.
         void erase(Item v) {
             link g = head;
             link p = head; link x = head->right;
